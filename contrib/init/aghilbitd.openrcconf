@@ -1,0 +1,33 @@
+# /etc/conf.d/aghilbitd: config file for /etc/init.d/aghilbitd
+
+# Config file location
+#AGHILBITD_CONFIGFILE="/etc/aghilbit/aghilbit.conf"
+
+# What directory to write pidfile to?  (created and owned by $AGHILBITD_USER)
+#AGHILBITD_PIDDIR="/var/run/aghilbitd"
+
+# What filename to give the pidfile
+#AGHILBITD_PIDFILE="${AGHILBITD_PIDDIR}/aghilbitd.pid"
+
+# Where to write aghilbitd data (be mindful that the blockchain is large)
+#AGHILBITD_DATADIR="/var/lib/aghilbitd"
+
+# User and group to own aghilbitd process
+#AGHILBITD_USER="aghilbit"
+#AGHILBITD_GROUP="aghilbit"
+
+# Path to aghilbitd executable
+#AGHILBITD_BIN="/usr/bin/aghilbitd"
+
+# Nice value to run aghilbitd under
+#AGHILBITD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+AGHILBITD_OPTS="-disablewallet"
+
+# The timeout in seconds OpenRC will wait for aghilbitd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+AGHILBITD_SIGTERM_TIMEOUT=60

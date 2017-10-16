@@ -1,0 +1,22 @@
+[Unit]
+Description=Aghilbit's distributed currency daemon
+After=network.target
+
+[Service]
+User=aghilbit
+Group=aghilbit
+
+Type=forking
+PIDFile=/var/lib/aghilbitd/aghilbitd.pid
+ExecStart=/usr/bin/aghilbitd -daemon -pid=/var/lib/aghilbitd/aghilbitd.pid \
+-conf=/etc/aghilbit/aghilbit.conf -datadir=/var/lib/aghilbitd -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

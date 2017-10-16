@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  aghilbitd The aghilbit core server.
+#
+#
+# chkconfig: 345 80 20
+# description: aghilbitd
+# processname: aghilbitd
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/aghilbitd, see below
+if [ -f /etc/sysconfig/aghilbitd ]; then
+        . /etc/sysconfig/aghilbitd
+fi
+
+RETVAL=0
+
+prog=aghilbitd
+# you can override the lockfile via AGHILBITD_LOCKFILE in /etc/sysconfig/aghilbitd
+lockfile=${AGHILBITD_LOCKFILE-/var/lock/subsys/aghilbitd}
+
+# aghilbitd defaults to /usr/bin/aghilbitd, override with AGHILBITD_BIN
+aghilbitd=${AGHILBITD_BIN-/usr/bin/aghilbitd}
+
+# aghilbitd opts default to -disablewallet, override with AGHILBITD_OPTS
+aghilbitd_opts=${AGHILBITD_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $aghilbitd $aghilbitd_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

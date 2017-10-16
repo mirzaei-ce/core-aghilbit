@@ -1,0 +1,6 @@
+usr/local/bin/aghilbit-qt usr/bin
+share/pixmaps/aghilbit32.xpm usr/share/pixmaps
+share/pixmaps/aghilbit16.xpm usr/share/pixmaps
+share/pixmaps/aghilbit128.png usr/share/pixmaps
+debian/aghilbit-qt.desktop usr/share/applications
+debian/aghilbit-qt.protocol usr/share/kde4/services/
